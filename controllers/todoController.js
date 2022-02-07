@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 // Connect to the database
 var dbURI = 'mongodb+srv://test:test@todoapp.cx5os.mongodb.net/todoApp?retryWrites=true&w=majority';
-mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true}).then((result) => console.log('connected to db')).catch((err) => console.log(err));
+mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Create a schema
 var todoSchema = new mongoose.Schema({
@@ -32,15 +32,13 @@ module.exports = function(app){
             if (err) throw err;
             res.json(data);
         });
-        data.push(req.body);
-        res.json(data);
     });
 
     app.delete('/todo/:item', function(req, res){
         // delete the requested item from mongodb
         Todo.find({item: req.params.item.replace(/\-/g, " ")}).remove(function(err, data){
             if (err) throw err;
-            read.json(data);
+            res.json(data);
         });
     });
 }
